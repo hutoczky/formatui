@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<assembly manifestVersion="1.0" xmlns="urn:schemas-microsoft-com:asm.v1">
+  <!--
+    This manifest declares that the application must run with administrator
+    privileges and that it is supported on Windows 11 (build 22621) and later.
+    The GUID below corresponds to Windows 10 build 22H2 which is the base
+    version number for Windows 11 and later.  Windows 10 itself is not
+    supported; earlier builds will refuse to run this application.
+  -->
+  <assemblyIdentity version="1.0.0.0" name="FormatUI.app"/>
+  <trustInfo xmlns="urn:schemas-microsoft-com:asm.v3">
+    <security>
+      <requestedPrivileges>
+        <!-- Force elevation via UAC prompt when starting the application.  Formatting volumes requires admin rights. -->
+        <requestedExecutionLevel level="requireAdministrator" uiAccess="false" />
+      </requestedPrivileges>
+    </security>
+  </trustInfo>
+  <compatibility xmlns="urn:schemas-microsoft-com:compatibility.v1">
+    <application>
+      <!-- This GUID corresponds to Windows 10 build 22H2 (which includes Windows 11 22H2).  It ensures the app is
+           marked as compatible with Windows 11 and later. -->
+      <supportedOS Id="{8e0f7a12-bfb3-4fe8-b9a5-48fd50a15a9a}" />
+    </application>
+  </compatibility>
+</assembly>

@@ -1,0 +1,93 @@
+<Window
+    x:Class="FormatUI.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Microsoft.UI.Xaml.Controls"
+    mc:Ignorable="d">
+    <!--
+      Main UI layout: a top custom title bar, a scrollable panel with
+      drive selection and formatting options, and a bottom bar with
+      Cancel and Format buttons.  Names defined here must correspond to
+      references in MainWindow.xaml.cs.
+    -->
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- Custom title bar area; the content here acts as the drag surface. -->
+        <Grid x:Name="AppTitleBar" Grid.Row="0" Height="48" Background="Transparent">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="12,0,0,0" Spacing="8">
+                <TextBlock Text="Formázás (modern)" Style="{StaticResource CaptionTextBlockStyle}" />
+                <TextBlock x:Name="ReFSInfoTextBlock" Style="{StaticResource CaptionTextBlockStyle}" Foreground="Gray" />
+            </StackPanel>
+        </Grid>
+
+        <!-- Content -->
+        <ScrollViewer Grid.Row="1">
+            <StackPanel Spacing="16" Margin="24,12">
+                <!-- Error/info bar -->
+                <controls:InfoBar x:Name="ErrorBar" IsOpen="False" IsClosable="True" />
+
+                <!-- Volume listing and options -->
+                <StackPanel Spacing="8">
+                    <TextBlock Text="Kötetek" Style="{StaticResource SubtitleTextBlockStyle}" />
+                    <CheckBox x:Name="IncludeNoLetterCheckBox" Content="Betűjel nélküli kötetek listázása is" IsChecked="True" Checked="IncludeNoLetterCheckBox_Checked" Unchecked="IncludeNoLetterCheckBox_Checked" />
+                    <ComboBox x:Name="DriveSelectorComboBox"
+                              PlaceholderText="Válasszon kötetet…"
+                              SelectionChanged="DriveSelectorComboBox_SelectionChanged"
+                              DisplayMemberPath="DisplayName" />
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <CheckBox x:Name="AssignTempLetterCheckBox" Content="Ideiglenes betűjel hozzárendelése (ha nincs)" IsChecked="True" />
+                        <ComboBox x:Name="TempLetterCombo" Width="80" PlaceholderText="Betűjel" />
+                        <CheckBox x:Name="RemoveTempAfterCheckBox" Content="Betűjel eltávolítása a végén" IsChecked="True" />
+                    </StackPanel>
+                </StackPanel>
+
+                <!-- Filesystem and options -->
+                <StackPanel Spacing="8">
+                    <TextBlock Text="Fájlrendszer" Style="{StaticResource SubtitleTextBlockStyle}" />
+                    <ComboBox x:Name="FileSystemComboBox" PlaceholderText="Válassza ki a fájlrendszert…" SelectionChanged="FileSystemComboBox_SelectionChanged" />
+                    <TextBlock x:Name="ReFSWarningTextBlock" Foreground="Red" TextWrapping="Wrap" Visibility="Collapsed" />
+                    <Button x:Name="EnableReFSButton" Content="ReFS engedélyezése" Click="EnableReFSButton_Click" Visibility="Collapsed" />
+                </StackPanel>
+
+                <!-- Allocation / label / quick format -->
+                <StackPanel Spacing="8">
+                    <TextBlock Text="Allokációs egység mérete" Style="{StaticResource SubtitleTextBlockStyle}" />
+                    <ComboBox x:Name="AllocationUnitComboBox" />
+                    <TextBox x:Name="LabelTextBox" Header="Kötet címkéje (opcionális)" PlaceholderText="Új kötet" />
+                    <CheckBox x:Name="QuickFormatCheckBox" Content="Gyorsformázás" IsChecked="True" />
+                </StackPanel>
+
+                <!-- BitLocker unlock -->
+                <controls:Expander Header="BitLocker" IsExpanded="False">
+                    <StackPanel Spacing="8" Margin="12,4">
+                        <TextBox x:Name="RecoveryKeyTextBox" Header="Recovery kulcs (48 számjegy)" PlaceholderText="XXXXXX-XXXXXX-..." />
+                        <PasswordBox x:Name="BitLockerPasswordBox" Header="Jelszó (opcionális)" />
+                        <Button x:Name="UnlockNowButton" Content="Feloldás most" Click="UnlockNowButton_Click" />
+                    </StackPanel>
+                </controls:Expander>
+
+                <!-- FAT32 warning placeholder -->
+                <TextBlock x:Name="Fat32WarningTextBlock" Foreground="Orange" TextWrapping="Wrap" Visibility="Collapsed" />
+
+                <!-- Progress panel shown during formatting -->
+                <StackPanel x:Name="FormatProgressPanel" Orientation="Horizontal" Spacing="8" Visibility="Collapsed">
+                    <ProgressBar x:Name="FormatProgressBar" Width="200" IsIndeterminate="True" />
+                    <TextBlock x:Name="FormatStatusText" VerticalAlignment="Center" Text="Formázás folyamatban..." />
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Buttons along bottom -->
+        <Grid Grid.Row="2" ColumnDefinitions="*,Auto,Auto" Padding="12" Background="{ThemeResource LayerFillColorDefaultBrush}">
+            <Button Grid.Column="1" Content="Mégse" x:Name="CancelButton" Margin="0,0,12,0" Click="CancelButton_Click" />
+            <Button Grid.Column="2" Content="Formázás" x:Name="FormatButton" Style="{StaticResource AccentButtonStyle}" Click="FormatButton_Click" />
+        </Grid>
+    </Grid>
+</Window>

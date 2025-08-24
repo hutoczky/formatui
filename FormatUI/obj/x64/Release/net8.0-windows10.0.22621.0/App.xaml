@@ -1,0 +1,18 @@
+﻿<Application
+    x:Class="FormatUI.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    RequestedTheme="Dark">
+  <!--
+    Merge the WinUI 3 resource dictionaries to get Fluent styles and Mica
+    brushes.  We don't define any custom resources here; the default
+    dark theme will be applied to the entire application.
+  -->
+  <Application.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
+      </ResourceDictionary.MergedDictionaries>
+    </ResourceDictionary>
+  </Application.Resources>
+</Application>

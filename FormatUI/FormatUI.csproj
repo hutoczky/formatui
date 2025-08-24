@@ -1,0 +1,106 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!--
+    This project defines a WinUI 3 desktop application that runs on .NET 9 and
+    targets Windows 11 (build 22621) or later.  It does not target or support
+    Windows 10; the minimum OS build is 22621 which corresponds to Windows 11
+    version 22H2.  The project deliberately avoids specifying a runtime
+    identifier at build time so that the build tools choose a suitable RID on
+    the host machine.  To prevent RID‑related errors (NETSDK1083/1082) when
+    transitive dependencies reference obsolete RID names such as win10‑x64,
+    the full RID graph is enabled via UseRidGraph and runtime pack and
+    transitive framework downloads are disabled.  These settings do not
+    enable Windows 10 support; they simply ensure the build process can
+    resolve internal RID names while remaining Windows 11‑only.
+  -->
+  <PropertyGroup>
+    <!-- Produce a Win32 executable -->
+    <OutputType>WinExe</OutputType>
+    <!-- Target .NET 8 and Windows 11 build 22621 (22H2).  The version number
+         uses the Windows kernel numbering scheme (10.0.22621) even though
+         it corresponds to Windows 11.  .NET 8 is the latest stable release
+         of .NET at the time of writing and avoids heap corruption issues
+         observed with .NET 9 preview. -->
+    <TargetFramework>net8.0-windows10.0.22621.0</TargetFramework>
+    <!-- Enable WinUI 3 support -->
+    <UseWinUI>true</UseWinUI>
+    <!-- Enable C# nullable reference types -->
+    <Nullable>enable</Nullable>
+    <!-- Use the full RID graph so that older RID names referenced by
+         dependencies do not trigger NETSDK1083.  This does not enable
+         Windows 10 support; it merely expands the recognised names. -->
+    <UseRidGraph>true</UseRidGraph>
+    <!-- Explicitly specify only the x64 runtime identifier.  Avoids pulling in ARM RID runtime packs. -->
+    <RuntimeIdentifiers>win-x64</RuntimeIdentifiers>
+    <!-- Disable design‑time runtime identifier validation -->
+    <DisableRuntimeIdentifierValidation>true</DisableRuntimeIdentifierValidation>
+    <!-- Disable runtime pack asset resolution and transitive framework
+         reference downloads during design‑time.  These settings prevent
+         NETSDK1082 when the build tools attempt to resolve runtime packs for
+         obsolete RID names.  During publish, these packs are resolved
+         correctly for the chosen RID. -->
+    <DisableRuntimePackAssetResolution>true</DisableRuntimePackAssetResolution>
+    <DisableTransitiveFrameworkReferenceDownloads>true</DisableTransitiveFrameworkReferenceDownloads>
+    <!-- Explicitly disable implicit file inclusion.  All code and XAML
+         files are listed below in ItemGroup entries. -->
+    <EnableDefaultItems>false</EnableDefaultItems>
+    <!-- Manifest file that requests administrator privileges -->
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <!-- Build for x64 only.  Windows 11 and later are assumed to run on
+         x64 hardware. -->
+    <Platforms>x64</Platforms>
+    <!-- Produce a self‑contained WinUI host so that the necessary WinUI
+         runtime components (such as Microsoft.ui.xaml.dll) are copied
+         alongside the executable.  Without this, the app will crash at
+         startup if the Windows App SDK runtime is not installed on the
+         target machine. -->
+    <WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
+  </PropertyGroup>
+
+  <!-- External dependencies -->
+  <ItemGroup>
+    <!-- Windows App SDK supplies WinUI 3 and other Windows 11 UI features -->
+    <!-- Use a specific version of WindowsAppSDK to silence NU1603 warnings.  1.5.24027000 is a stable build within the 1.5 major release. -->
+    <!-- Pin to a specific build of Windows App SDK.  Use 1.5.240227000 to match the environment available
+         on many developer machines.  This avoids NU1603 warnings about resolving a different build. -->
+    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.8.250814004-preview" />
+    <!-- System.Management enables WMI queries for volume enumeration and
+         formatting.  Use a version compatible with .NET 8. -->
+    <PackageReference Include="System.Management" Version="8.0.0" />
+  </ItemGroup>
+
+  <!-- List all source and resource files explicitly -->
+  <ItemGroup>
+    <!-- XAML pages -->
+    <!-- ApplicationDefinition generates the entry point (Main) for WinUI.
+         Without this, the compiler emits CS5001 due to missing Main. -->
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
+
+    <!-- Models and services -->
+    <Compile Include="Models/VolumeInfo.cs" />
+    <Compile Include="Services/VolumeManager.cs" />
+    <Compile Include="Services/BitLockerService.cs" />
+    <Compile Include="Services/FormatEngines.cs" />
+    <!-- Fallback DriveInfo-based volume scanner -->
+    <Compile Include="Services/VolumeScanner.cs" />
+
+    <!-- Manifest and scripts -->
+    <None Include="app.manifest" />
+    <None Include="Scripts/Add-ContextMenu.ps1" />
+    <None Include="Scripts/Remove-ContextMenu.ps1" />
+    <None Include="install.ps1" />
+  </ItemGroup>
+</Project>

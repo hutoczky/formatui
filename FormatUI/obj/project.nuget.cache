@@ -1,0 +1,27 @@
+{
+  "version": 2,
+  "dgSpecHash": "LTGnE2rNBes=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\hutoc\\Downloads\\ExcelFordito_Fixed_v4\\FormatUI\\final_working_formatui12\\FormatUI\\FormatUI.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\hutoc\\.nuget\\packages\\microsoft.web.webview2\\1.0.3179.45\\microsoft.web.webview2.1.0.3179.45.nupkg.sha512",
+    "C:\\Users\\hutoc\\.nuget\\packages\\microsoft.windows.sdk.buildtools\\10.0.26100.4654\\microsoft.windows.sdk.buildtools.10.0.26100.4654.nupkg.sha512",
+    "C:\\Users\\hutoc\\.nuget\\packages\\microsoft.windows.sdk.buildtools.msix\\1.7.20250806.1\\microsoft.windows.sdk.buildtools.msix.1.7.20250806.1.nupkg.sha512",
+    "C:\\Users\\hutoc\\.nuget\\packages\\microsoft.windowsappsdk\\1.8.250814004-preview\\microsoft.windowsappsdk.1.8.250814004-preview.nupkg.sha512",
+    "C:\\Users\\hutoc\\.nuget\\packages\\microsoft.windowsappsdk.ai\\1.8.20-preview\\microsoft.windowsappsdk.ai.1.8.20-preview.nupkg.sha512",
+    "C:\\Users\\hutoc\\.nuget\\packages\\microsoft.windowsappsdk.base\\1.8.250730001-preview\\microsoft.windowsappsdk.base.1.8.250730001-preview.nupkg.sha512",
+    "C:\\Users\\hutoc\\.nuget\\packages\\microsoft.windowsappsdk.dwrite\\1.8.25073101-preview\\microsoft.windowsappsdk.dwrite.1.8.25073101-preview.nupkg.sha512",
+    "C:\\Users\\hutoc\\.nuget\\packages\\microsoft.windowsappsdk.foundation\\1.8.250803001-preview\\microsoft.windowsappsdk.foundation.1.8.250803001-preview.nupkg.sha512",
+    "C:\\Users\\hutoc\\.nuget\\packages\\microsoft.windowsappsdk.interactiveexperiences\\1.8.250801002-preview\\microsoft.windowsappsdk.interactiveexperiences.1.8.250801002-preview.nupkg.sha512",
+    "C:\\Users\\hutoc\\.nuget\\packages\\microsoft.windowsappsdk.runtime\\1.8.250814004-preview\\microsoft.windowsappsdk.runtime.1.8.250814004-preview.nupkg.sha512",
+    "C:\\Users\\hutoc\\.nuget\\packages\\microsoft.windowsappsdk.widgets\\1.8.250801001-preview\\microsoft.windowsappsdk.widgets.1.8.250801001-preview.nupkg.sha512",
+    "C:\\Users\\hutoc\\.nuget\\packages\\microsoft.windowsappsdk.winui\\1.8.250803000-preview\\microsoft.windowsappsdk.winui.1.8.250803000-preview.nupkg.sha512",
+    "C:\\Users\\hutoc\\.nuget\\packages\\system.codedom\\8.0.0\\system.codedom.8.0.0.nupkg.sha512",
+    "C:\\Users\\hutoc\\.nuget\\packages\\system.management\\8.0.0\\system.management.8.0.0.nupkg.sha512",
+    "C:\\Users\\hutoc\\.nuget\\packages\\microsoft.windows.sdk.net.ref\\10.0.22621.57\\microsoft.windows.sdk.net.ref.10.0.22621.57.nupkg.sha512",
+    "C:\\Users\\hutoc\\.nuget\\packages\\microsoft.netcore.app.ref\\8.0.18\\microsoft.netcore.app.ref.8.0.18.nupkg.sha512",
+    "C:\\Users\\hutoc\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\8.0.18\\microsoft.netcore.app.host.win-x64.8.0.18.nupkg.sha512",
+    "C:\\Users\\hutoc\\.nuget\\packages\\microsoft.netcore.app.runtime.win-x64\\8.0.18\\microsoft.netcore.app.runtime.win-x64.8.0.18.nupkg.sha512"
+  ],
+  "logs": []
+}
